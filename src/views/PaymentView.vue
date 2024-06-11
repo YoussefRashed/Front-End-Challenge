@@ -46,12 +46,11 @@ import { defineComponent, ref, computed } from "vue";
 export default defineComponent({
   name: "CardForm",
   setup() {
-    let cardLogo = ref<string>();
     const form = ref<PaymentDto>({
       cardNumber: "",
-      expireDate: "",
+      expireDate: new Date(),
       cardHolderName: "",
-      cvv: undefined,
+      CVV: 0,
     });
 
     const errors = ref({
@@ -73,12 +72,6 @@ export default defineComponent({
       return "";
     });
 
-    const changeCardLogo = () => {
-      if (form.value.cardNumber.startsWith("4")) {
-        cardLogo = "AWX";
-        console.log(cardLogo);
-      }
-    };
     const validateForm = () => {
       let isValid = true;
       const today = new Date();
@@ -131,8 +124,6 @@ export default defineComponent({
       form,
       errors,
       submitForm,
-      changeCardLogo,
-      cardLogo,
       cardLogoBasedOnFirstNumber,
     };
   },

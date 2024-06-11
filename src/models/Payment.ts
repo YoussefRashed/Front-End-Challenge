@@ -1,6 +1,6 @@
 export interface PaymentDto {
-  CardNumber: string;
-  ExpireDate: Date;
-  CardHolderName: string;
+  cardNumber: string;
+  expireDate: Date;
+  cardHolderName: string;
   CVV?: number;
 }
