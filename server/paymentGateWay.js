@@ -1,9 +1,19 @@
 const express = require("express");
 const app = express();
-const stripe = require("stripe")("YOUR_STRIPE_SECRET_KEY");
+const cors = require("cors");
+
+// Middleware
+app.use(cors());
+const stripe = require("stripe")(
+  "sk_test_51PQTFgKQW5VsZdS1pER3x0EYQXMqsLOdaNWWvyinc12j3RAuyjtkKYz1A9oalIGU0S5k7L3Sg4MhrH4yQ7kmBYpr006KpezjQd"
+);
 
 app.use(express.static("public"));
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 app.post("/create-payment-intent", async (req, res) => {
   const { amount } = req.body;
