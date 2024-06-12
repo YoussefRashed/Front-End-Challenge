@@ -25,7 +25,6 @@ defineProps<{
   overflow: auto;
 }
 
-/* Sidebar links */
 .sidebar .routeLink {
   display: block;
   color: black;
@@ -33,26 +32,25 @@ defineProps<{
   text-decoration: none;
 }
 
-/* Active/current link */
 .sidebar .routeLink.router-link-exact-active {
   background-color: #04aa6d;
   color: white;
 }
 
-/* Links on mouse-over */
 .sidebar .routeLink:hover:not(.active) {
   background-color: #555;
   color: white;
 }
 
-/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
-/* div.content {
-  margin-left: 200px;
-  padding: 1px 16px;
-  height: 1000px;
-} */
+@media screen and (max-width: 1200px) {
+  .container {
+    grid-template-columns: [sidebar] 20% [router-view]80%;
+  }
+  .sidebar {
+    width: 150px;
+  }
+}
 
-/* On screens that are less than 700px wide, make the sidebar into a topbar */
 @media screen and (max-width: 700px) {
   .sidebar {
     width: 100%;
@@ -64,7 +62,6 @@ defineProps<{
   }
 }
 
-/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
 @media screen and (max-width: 400px) {
   .sidebar .routeLink {
     text-align: center;
