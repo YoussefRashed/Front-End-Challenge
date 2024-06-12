@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+:root{
+    --bg-primary:#7462F4;
+    --btn-bg-primary:#8E86FF;
+}
+*{
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+body{
+    background-color: #EEE;
+    margin-right:15px ;
+}
+.card
+{
+    background: #FFF;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 7px #CCC;
+}
+.mt-5{
+    margin-top: 5rem;
+}
+bg-primary{
+background-color: var(--bg-primary);
+}
