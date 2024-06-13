@@ -24,12 +24,20 @@
 ## Project setup
 ```
 npm install
+npm lint --fix
 ```
 
 ### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
+### Run Server for getting stripe secret key
+```bash
+cd server
+node ./paymentGateWay.js
+``` 
+### Then The `Application is Ready to use ✅`
+
 
 
 
