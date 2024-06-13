@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { PaymentDto } from "../models/Payment";
+import { PaymentDto } from "../../models/Payment";
 import { defineComponent, ref, onMounted } from "vue";
 import { loadStripe } from "@stripe/stripe-js";
 import PageHeader from "../../components/layout/PageHeader.vue";
