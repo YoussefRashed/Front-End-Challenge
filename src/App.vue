@@ -3,7 +3,7 @@
     <div class="sidebar">
       <SideMenu :links="links" />
     </div>
-    <div class="content">
+    <div class="content fade-in">
       <router-view />
     </div>
   </div>
@@ -22,5 +22,18 @@ links = ["payment"];
 }
 .content {
   grid-column: router-view;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
 }
 </style>

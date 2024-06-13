@@ -9,6 +9,6 @@ defineProps<{ pageName: string }>();
 
 <style>
 .header {
-  text-align: center;
+  margin: 100px 0px;
 }
 </style>

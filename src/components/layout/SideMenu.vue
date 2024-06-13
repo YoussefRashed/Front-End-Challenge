@@ -33,12 +33,12 @@ defineProps<{
 }
 
 .sidebar .routeLink.router-link-exact-active {
-  background-color: #04aa6d;
+  background-color: #7462f4;
   color: white;
 }
 
 .sidebar .routeLink:hover:not(.active) {
-  background-color: #555;
+  background-color: #51328b;
   color: white;
 }
 
