@@ -1,46 +1,43 @@
 <template>
-  <h1>PAYMENT</h1>
+  <PageHeader :pageName="'Payment'" />
   <form @submit.prevent="submitForm">
-    <div>
-      <!-- <label for="cardHolderName">Card Holder Name:</label> -->
-      <input
-        type="text"
-        id="cardHolderName"
-        placeholder="Card Holder Name"
-        class="InputElement Input"
-        v-model="form.cardHolderName"
-        maxlength="50"
-        required
-      />
-      <span v-if="errors.cardHolderName">{{ errors.cardHolderName }}</span>
+    <div class="card">
+      <div>
+        <input
+          type="text"
+          id="cardHolderName"
+          placeholder="Card Holder Name"
+          class="InputElement Input"
+          v-model="form.cardHolderName"
+          maxlength="50"
+          required
+        />
+        <span class="error-msg" v-if="errors.cardHolderName">{{
+          errors.cardHolderName
+        }}</span>
+      </div>
+      <div class="card-emb-form">
+        <div id="card-element"></div>
+      </div>
+      <div class="error-msg" v-if="stripeError">{{ stripeError }}</div>
+      <div class="text-center">
+        <button class="btn-primary" type="submit">Submit</button>
+      </div>
     </div>
-
-    <div id="card-element"></div>
-    <div v-if="stripeError">{{ stripeError }}</div>
-    <button type="submit">Submit</button>
   </form>
 </template>
 
-<style>
-#card-element {
-  padding: 100px;
-}
-card-element * {
-  overflow: visible !important;
-}
-#card-element input {
-  background-color: red;
-  color: green !important;
-}
-</style>
-
 <script lang="ts">
 import { PaymentDto } from "../models/Payment";
-import { defineComponent, ref, computed, onMounted } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import { loadStripe } from "@stripe/stripe-js";
+import PageHeader from "../../components/layout/PageHeader.vue";
 
 export default defineComponent({
   name: "CardForm",
+  components: {
+    PageHeader,
+  },
   setup() {
     const form = ref<PaymentDto>({
       cardHolderName: "",
@@ -63,13 +60,15 @@ export default defineComponent({
         isValid = false;
       }
 
-      if (
-        (form.value.cardHolderName.split(" ").length < 2 &&
-          form.value.cardHolderName.split(" ")[0].length < 3) ||
-        form.value.cardHolderName.split(" ")[1].length < 3
-      ) {
+      if (form.value.cardHolderName.split(" ").length < 2) {
         errors.value.cardHolderName =
-          "Card holder name should contain at least 2 real names";
+          "Card holder name should contain at least 2 names";
+        if (
+          form.value.cardHolderName.split(" ")[0].length < 3 ||
+          form.value.cardHolderName.split(" ")[1].length < 3
+        )
+          errors.value.cardHolderName =
+            "Card holder name should contain at least 2 real names";
         isValid = false;
       }
       return isValid;
@@ -87,9 +86,6 @@ export default defineComponent({
             body: JSON.stringify({ amount: 10000 }),
           }
         ).then((res) => res.json());
-        console.log(clientSecret);
-        console.log(form.value.cardHolderName);
-
         const result = await stripe.confirmCardPayment(clientSecret, {
           payment_method: {
             card: cardElement,
@@ -98,7 +94,6 @@ export default defineComponent({
             },
           },
         });
-
         if (result.error) {
           stripeError.value = result.error.message;
         } else {
@@ -113,8 +108,33 @@ export default defineComponent({
       stripe = await loadStripe(
         "pk_test_51PQTFgKQW5VsZdS1Mj1GyY2jtJrITz02uNIuJ50mFjWY19ZLMxfwAQwuzlc5YNejT3Ljz9zAVOd8MPc0jmtVruIw00lKBP7Nun"
       );
+
       elements = stripe.elements();
-      cardElement = elements.create("card");
+      cardElement = elements.create("card", {
+        style: {
+          input: {
+            backgroundColor: "#AAA",
+          },
+          base: {
+            iconColor: "#7462f4",
+            color: "#000",
+            fontWeight: "500",
+            fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
+            fontSize: "16px",
+            fontSmoothing: "antialiased",
+            ":-webkit-autofill": {
+              color: "#7462f4",
+            },
+            "::placeholder": {
+              color: "#7462f4",
+            },
+          },
+          invalid: {
+            iconColor: "#cf2e2e",
+            color: "#cf2e2e",
+          },
+        },
+      });
       cardElement.mount("#card-element");
     });
 
@@ -127,3 +147,17 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+#cardHolderName {
+  width: 97%;
+  font-size: 16px;
+}
+#card-element {
+  border: 1px solid #7462f4;
+  padding: 15px;
+  background: #eee;
+  border-radius: 8px;
+  margin: 20px 0px;
+}
+</style>

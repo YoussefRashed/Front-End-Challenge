@@ -1,11 +1,11 @@
 <template>
-  <PageHeader :pageName="'Profile Information'" />
+  <PageHeader :pageName="'Profile '" />
   <div class="card">
-    <div class="container">
+    <div class="profile-container">
       <div>
         <div class="image bg-primary">
           <img
-            src="../assets/profile/photo_5798431688026603715_y.jpg"
+            src="../../assets/profile/profile-img.jpg"
             alt=""
             width="150px"
           />
@@ -30,11 +30,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import PageHeader from "../components/layout/PageHeader";
+import PageHeader from "../../components/layout/PageHeader.vue";
 </script>
 
 <style scoped>
-.container {
+.profile-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -44,17 +44,22 @@ import PageHeader from "../components/layout/PageHeader";
   width: 150px;
   height: 150px;
   border-radius: 50%;
+  transition: 0.4s 0.1s linear;
+}
+.image:hover {
+  box-shadow: 1px 1px 50px #4b4198;
+  transform: translateY(-5px);
 }
 .image {
   border-radius: 50%;
   padding: 3px;
   background-color: rgb(140, 140, 254);
 }
-
-.image > img {
+.item > h2 {
+  color: rgb(140, 140, 254);
 }
 @media screen and (max-width: 1200px) {
-  .container {
+  .profile-container {
     flex-flow: column;
   }
 }
